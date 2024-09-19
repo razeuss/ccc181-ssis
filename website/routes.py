@@ -13,3 +13,7 @@ def addstud():
 @views.route('/update')
 def update():
     return render_template("update.html")
+
+@views.route('/Students')
+def students_list():
+    return render_template("studentslist.html")

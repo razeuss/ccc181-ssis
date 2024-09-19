@@ -1,0 +1,32 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 270px;
+    background-color: white;
+    padding: 20px;
+    border-right: 20px solid #F0F0F0;
+}
+
+
+.sidebar-btn {
+    background-color: white;
+    border:white;
+    color: gray;
+    transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease;
+    height: 50px;
+}
+
+
+.sidebar-btn:hover {
+    background-color: lightgray;
+    color: gray;
+}
+
+
+.sidebar-btn:active {
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+}

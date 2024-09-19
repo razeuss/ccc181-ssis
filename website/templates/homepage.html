@@ -4,27 +4,11 @@
 
 {% block content %}
 
-<div class="container">
-    <h1>Welcome to the Homepage</h1>
-
-    <!-- Button to open the 'Add' page in a modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        Add Student
-    </button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        Update</button>
-
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Student Information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="addModalBody">
-                    
-                </div>
-            </div>
+<div class="content">
+    <div class="d-flex justify-content-center mt-5">
+        <div class="input-group w-25">
+            <input type="text" class="form-control" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
+            <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
         </div>
     </div>
 </div>

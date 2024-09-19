@@ -1,19 +1,43 @@
-<form id="addStudentForm" method="post" action="/add_student">
-    <div class="mb-3">
-        <label for="studentName" class="form-label">Student Name</label>
-        <input type="text" class="form-control" id="studentName" name="studentName" required>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-1 col-lg-10 pb-5 pt-2">
+            <div class="form-section">
+                <form id="addStudentForm" method="post" action="/add_student">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <label for="firstName" class="form-label" style="opacity: 0.7;">First Name</label>
+                            <input type="text" class="form-control" style="border-color: black;" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label" style="opacity: 0.7;">Last Name</label>
+                            <input type="text" class="form-control" style="border-color: black;" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentID" class="form-label" style="opacity: 0.7;">Student ID</label>
+                        <input type="text" class="form-control" style="border-color: black;" id="studentID" name="studentID" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="program" class="form-label" style="opacity: 0.7;">Program</label>
+                        <input type="text" class="form-control" style="border-color: black;" id="program" name="program" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="gender" class="form-label" style="opacity: 0.7;">Gender</label>
+                            <select class="form-select" style="border-color: black;" id="gender" name="gender" required>
+                                <option value="" style="opacity: 0.7;" disabled selected> </option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="year" class="form-label" style="opacity: 0.7;">Year Level</label>
+                            <input type="number" class="form-control" style="border-color: black;" id="year" name="year" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3" style="height: 45px;">DONE</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="studentID" class="form-label">Student ID</label>
-        <input type="text" class="form-control" id="studentID" name="studentID" required>
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-    </div>
-    <div class="mb-3">
-        <label for="yearLevel" class="form-label">Year Level</label>
-        <input type="number" class="form-control" id="yearLevel" name="yearLevel" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Student</button>
-</form>
