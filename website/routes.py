@@ -10,9 +10,9 @@ def homepage():
 def addstud():
     return render_template("addstud.html")
 
-@views.route('/update')
+@views.route('/programs')
 def update():
-    return render_template("update.html")
+    return render_template("programs.html")
 
 @views.route('/Students')
 def students_list():

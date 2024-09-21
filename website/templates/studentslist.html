@@ -3,29 +3,61 @@
 {% block title %}Students List{% endblock %}
 
 {% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="input-group w-25">
+        <input type="text" class="form-control" id="studentSearch" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
+        <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
-      
         <div class="col-md-5 offset-md-1">
-           
-            
-            <div class="d-flex justify-content-center mt-5  offset-md-2">
-                <div class="input-group w-50">
-                    <input type="text" class="form-control" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
-                    <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
-                </div>
-            </div>
-        
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered custom-modal-width"> <!-- Added custom-modal-width -->
+                <div class="modal-dialog modal-dialog-centered custom-modal-width">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="addModalLabel">Student Information</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" id="addModalBody">
-                            <input type="text" class="form-control mb-3" placeholder="Student Name">
-                            <button class="btn btn-success " type="button">Submit</button>
+                        <div class="modal-body mb-4 mx-4" id="addModalBody">
+                            <form id="addStudentForm" method="post" action="/add_student">
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="firstName" class="form-label" style="opacity: 0.7;">First Name</label>
+                                        <input type="text" class="form-control" style="border-color: black;" id="firstName" name="firstName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label" style="opacity: 0.7;">Last Name</label>
+                                        <input type="text" class="form-control" style="border-color: black;" id="lastName" name="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="studentID" class="form-label" style="opacity: 0.7;">Student ID</label>
+                                    <input type="text" class="form-control" style="border-color: black;" id="studentID" name="studentID" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="program" class="form-label" style="opacity: 0.7;">Program</label>
+                                    <input type="text" class="form-control" style="border-color: black;" id="program" name="program" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="gender" class="form-label" style="opacity: 0.7;">Gender</label>
+                                        <select class="form-select" style="border-color: black;" id="gender" name="gender" required>
+                                            <option value="" style="opacity: 0.7;" disabled selected> </option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="year" class="form-label" style="opacity: 0.7;">Year Level</label>
+                                        <input type="number" class="form-control" style="border-color: black;" id="year" name="year" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-3" style="height: 45px;">DONE</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -34,7 +66,7 @@
     </div>
 </div>
 
-<div class="mt-5 text-center ">
+<div class="mt-3 text-center  ">
     <button type="button" style="background-color: #2ECC71; border-color:  #2ECC71;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
         Add Student
     </button>
