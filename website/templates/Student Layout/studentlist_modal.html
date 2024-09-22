@@ -1,15 +1,3 @@
-{% extends "index.html" %}
-
-{% block title %}Students List{% endblock %}
-
-{% block content %}
-
-<div class="d-flex justify-content-center mt-5">
-    <div class="input-group w-25">
-        <input type="text" class="form-control" id="studentSearch" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
-        <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
-    </div>
-</div>
 
 <form id="addStudentForm" method="POST" action="/add">
  <div class="container-fluid">
@@ -68,39 +56,3 @@
  </div>
 </form>
 
-
-<div class="container mt-5">
-    <div class="d-flex justify-content-end mt-3">
-        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-            Add Student
-        </button>
-    </div>
-
-    <table class=" mt-2 table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>FIRST NAME</th>
-                <th>LAST NAME</th>
-                <th>ID</th>
-                <th>PROGRAM</th>
-                <th>GENDER</th>
-                <th>YEAR LEVEL</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Loop through students data -->
-            {% for student in students %}
-            <tr>
-                <td>{{ student[0] }}</td>
-                <td>{{ student[1] }}</td>
-                <td>{{ student[2] }}</td>
-                <td>{{ student[3] }}</td>
-                <td>{{ student[4] }}</td>
-                <td>{{ student[5] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-{% endblock %}

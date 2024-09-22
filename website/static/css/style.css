@@ -30,3 +30,43 @@
     color: black;
     font-weight: bold;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f4f4f4; /* Light gray background for the table */
+    border: none;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #e0e0e0; /* Slightly darker gray for the header */
+    border-bottom: 2px solid #ccc;
+}
+
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+}
+
+th {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+td {
+    font-size: 15px;
+    color: #555;
+}

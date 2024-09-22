@@ -1,0 +1,57 @@
+{% extends "Master Layout/index.html" %}
+
+{% block title %}Programs{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+   
+    <div class="d-flex align-items-center justify-content-start">
+       
+        <div class="input-group w-50" style="margin-right: 15px;">
+            <input type="text" class="form-control" style="border-color: black;" placeholder="Type program name" aria-label="Search programs" aria-describedby="searchButton">
+            <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
+        </div>
+
+      
+        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71; margin-right: 185px;" class="btn btn-primary d-flex justify-content-end"  data-bs-toggle="modal" data-bs-target="#addModal">
+            Add Program
+        </button>
+        
+        <select class="form-select w-25" style="border-color: black;" id="collegeCode" name="collegecode" required>
+            <option value="" style="opacity: 0.7;" disabled selected>Select College</option>
+            <option value="CCS">CCS</option>
+            <option value="CED">CED</option>
+            <option value="COE">COE</option>
+            <option value="CHS">CHS</option>
+            <option value="CASS">CASS</option>
+            <option value="CEBA">CEBA</option>
+            <option value="CSM">CSM</option>
+        </select>
+        
+    </div>
+
+    {% include 'Program Layout/programs_modal.html' %}
+
+    <table class="table mt-3 table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 15%;">College Code</th>
+                <th style="width: 15%;">Program Code</th>
+                <th style="width: 70%;">Program Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through programs data -->
+            {% for program in programs %}
+            <tr>
+                <td>{{ program[2] }}</td>
+                <td>{{ program[0] }}</td>
+                <td>{{ program[1] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
