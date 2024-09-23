@@ -1,4 +1,4 @@
-{% extends "Master Layout/index.html" %}
+{% extends "Master Template/index.html" %}
 
 {% block title %}Colleges{% endblock %}
 
@@ -15,11 +15,11 @@
 
         <!-- Add College button -->
         <button type="button" style="background-color: #2ECC71; border-color: #2ECC71;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-            Add College
+            ADD COLLEGE
         </button>
     </div>
 
-    {% include 'College Layout/college_modal.html' %}
+    {% include 'College Template/college_modal.html' %}
 
     <table class="mt-3 table table-bordered">
         <thead>
@@ -38,6 +38,20 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="w-100 mt-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    
 </div>
 
 {% endblock %}

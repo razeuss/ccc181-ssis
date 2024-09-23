@@ -1,0 +1,54 @@
+<form id="addProgramForm" method="POST" action="/add">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 offset-md-1">
+                <div class="modal fade" id="searchProgramModal" tabindex="-1" aria-labelledby="searchProgramModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered custom-modal-width">
+                        <div class="modal-content">
+                            <div class="modal-header d-flex justify-content-between align-items-center">
+                                <h5 class="modal-title" id="searchProgramModalLabel">Program Information</h5>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-secondary me-2" id="editprog">EDIT</button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div class="modal-body mb-4 mx-4" id="addModalBody">
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="programCode" class="form-label" style="opacity: 0.7;">Program Code</label>
+                                        <input type="text" class="form-control" style="border-color: black;" id="programCode" name="programcode" required readonly>
+                                      </div>
+                                      <div class="col-md-6 mb-3">
+                                        <label for="collegeCode" class="form-label" style="opacity: 0.7;">College Code</label>
+                                        <select class="form-select" style="border-color: black;" id="college_code" name="college_code" required readonly>
+                                          <option value="" style="opacity: 0.7;" disabled selected> </option>
+                                          <option value="CCS">CCS</option>
+                                          <option value="CED">CED</option>
+                                          <option value="COE">COE</option>
+                                          <option value="CHS">CHS</option>
+                                          <option value="CASS">CASS</option>
+                                          <option value="CEBA">CEBA</option>
+                                          <option value="CSM">CSM</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="programName" class="form-label" style="opacity: 0.7;">Program Name</label>
+                                      <input type="text" class="form-control" style="border-color: black;" id="programName" name="programname" required readonly>
+                                    </div>
+                                
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <button type="button" class="btn" id="deleteprog" style="border: 2px solid red; background-color: transparent; color: red;">DELETE</button>
+                                        <div class="d-flex">
+                                            <button type="button" class="btn" id="cancelprog" style="border: 2px solid #2ECC71; background-color: transparent; color: #2ECC71;">CANCEL</button>
+                                            <button type="submit" class="btn ms-2" id="doneprog" style="background-color: #2ECC71; border-color: #2ECC71; display: none; color: white;">DONE</button>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

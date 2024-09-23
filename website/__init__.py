@@ -13,7 +13,16 @@ def create_app():
     
     mysql = MySQL(app)
     
-    from .routes import views
+    from .main_route import views
     app.register_blueprint(views)
+    
+    from .routes.student_routes import student_bp
+    app.register_blueprint(student_bp)
+    
+    from .routes.program_routes import program_bp
+    app.register_blueprint(program_bp)
+    
+    from .routes.college_routes import college_bp
+    app.register_blueprint(college_bp)
 
     return app

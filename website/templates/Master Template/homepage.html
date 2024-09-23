@@ -1,4 +1,4 @@
-{% extends "Master Layout/index.html" %}
+{% extends "Master Template/index.html" %}
 
 {% block title %}Homepage{% endblock %}
 
@@ -7,10 +7,14 @@
 <div class="content">
     <div class="d-flex justify-content-center mt-5">
         <div class="input-group w-25">
-            <input type="text" class="form-control" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
+            <input id="studentSearch" type="text" class="form-control" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
             <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
         </div>
     </div>
+</div>
+
+<div >
+    {% include "Student Template/search_student.html" %} 
 </div>
 
 {% endblock %}

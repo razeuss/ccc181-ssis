@@ -1,4 +1,4 @@
-{% extends "Master Layout/index.html" %}
+{% extends "Master Template/index.html" %}
 
 {% block title %}Programs{% endblock %}
 
@@ -9,15 +9,16 @@
     <div class="d-flex align-items-center justify-content-start">
        
         <div class="input-group w-50" style="margin-right: 15px;">
-            <input type="text" class="form-control" style="border-color: black;" placeholder="Type program name" aria-label="Search programs" aria-describedby="searchButton">
-            <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
+            <input type="text" class="form-control" id="programinput" style="border-color: black;" placeholder="Type program name" aria-label="Search programs" aria-describedby="searchButton">
+            <button class="btn btn-primary" type="button" id="searchprog">SEARCH</button>
         </div>
 
       
-        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71; margin-right: 185px;" class="btn btn-primary d-flex justify-content-end"  data-bs-toggle="modal" data-bs-target="#addModal">
-            Add Program
+        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71; margin-right: 170px;" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addModal">
+            ADD PROGRAM
         </button>
-        
+
+
         <select class="form-select w-25" style="border-color: black;" id="collegeCode" name="collegecode" required>
             <option value="" style="opacity: 0.7;" disabled selected>Select College</option>
             <option value="CCS">CCS</option>
@@ -30,8 +31,7 @@
         </select>
         
     </div>
-
-    {% include 'Program Layout/programs_modal.html' %}
+   
 
     <table class="table mt-3 table-bordered">
         <thead>
@@ -52,6 +52,25 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="w-100 mt-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    
 </div>
+
+<div>
+  {% include 'Program Template/search_program.html' %}
+  {% include 'Program Template/programs_modal.html' %}
+</div>  
 
 {% endblock %}
