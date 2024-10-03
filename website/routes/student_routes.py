@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages
 from website.models.student import Student
+from website.models.programs import Program
 from flask_mysqldb import MySQL
 from flask import jsonify
 
@@ -16,12 +17,22 @@ def addstud():
         year = request.form['year']
         gender = request.form['gender']
 
-      
+        existing_student = Student.get_student_by_id(mysql, student_id)
+        if existing_student:
+            flash('Student ID already exists. Please use a unique ID.', 'error')
+            return redirect(url_for('student_bp.students_list'))
+
+        program_exists = Program.search_program(mysql, program)
+        if not program_exists:
+            flash('The program does not exist. Please choose a valid program.', 'error')
+            return redirect(url_for('student_bp.students_list'))
+
         Student.add_student(mysql, student_id, first_name, last_name, program, year, gender)
         flash('Student Added Successfully', 'success')
         return redirect(url_for('student_bp.students_list'))
 
     return render_template("Student Template/studentslist.html")
+
 
 
 @student_bp.route('/Students')
@@ -58,6 +69,11 @@ def update_student(student_id):
         program = request.form['program']
         year = request.form['year']
         gender = request.form['gender']
+
+        program_exists = Program.search_program(mysql, program)
+        if not program_exists:
+            flash('The program does not exist. Please choose a valid program.', 'error')
+            return redirect(url_for('student_bp.students_list'))
 
         Student.update_student(mysql, student_id, first_name, last_name, program, year, gender)
         flash('Student Updated Successfully', 'success')

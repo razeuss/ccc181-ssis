@@ -52,3 +52,10 @@ class Program:
         programs = cur.fetchall()
         cur.close()
         return programs
+    
+    def get_program_by_code(mysql, code):
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM program WHERE code = %s", (code,))
+        program = cursor.fetchone()
+        cursor.close()
+        return program

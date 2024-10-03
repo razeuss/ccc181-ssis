@@ -41,3 +41,13 @@ class College:
         cur.execute("DELETE FROM college WHERE code = %s", (code,))
         mysql.connection.commit()
         cur.close()
+        
+        
+    def get_college_by_code(mysql, code):
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM college WHERE code = %s", (code,))
+        college = cursor.fetchone()
+        cursor.close()
+        return college
+        
+        

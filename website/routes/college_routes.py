@@ -12,6 +12,12 @@ def add_college():
         code = request.form['collegecode']
         name = request.form['collegename']
 
+        existing_college = College.get_college_by_code(mysql, code)
+        if existing_college:
+            flash('College already exists.', 'error')
+            return redirect(url_for('college_bp.colleges_list'))
+
+       
         College.add_college(mysql, code, name)
         flash('College Added Successfully', 'success')
         return redirect(url_for('college_bp.colleges_list'))

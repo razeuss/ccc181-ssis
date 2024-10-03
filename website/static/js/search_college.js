@@ -21,7 +21,7 @@ document.getElementById('searchCollegeBtn').addEventListener('click', function()
                 document.getElementById('deletecollege').style.display = 'none';
                 document.getElementById('cancelcollege').style.display = 'none';
 
-                document.getElementById('editButton').style.display = 'block';
+                document.getElementById('editcollege').style.display = 'block';
                 document.getElementById('searchcollegelabel').textContent = 'College Information';
 
             } else {
@@ -56,7 +56,7 @@ document.getElementById('cancelcollege').addEventListener('click', function() {
     document.getElementById('cancelcollege').style.display = 'none';
  
     document.getElementById('editcollege').style.display = 'block';
-    document.getElementById('searchcollegeLabel').textContent = 'College Information';
+    document.getElementById('searchcollegelabel').textContent = 'College Information';
 });
 
 document.getElementById('deletecollege').addEventListener('click', function() {

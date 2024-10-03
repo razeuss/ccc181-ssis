@@ -21,8 +21,8 @@ document.getElementById('searchprog').addEventListener('click', function() {
                 document.getElementById('deleteprog').style.display = 'none';
                 document.getElementById('cancelprog').style.display = 'none';
             
-                document.getElementById('editButton').style.display = 'block';
-                document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
+                document.getElementById('editprog').style.display = 'block';
+                document.getElementById('searchProgramModalLabel').textContent = 'Program Information';
             } else {
                 alert('Program not found');
             }

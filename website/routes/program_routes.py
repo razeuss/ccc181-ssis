@@ -13,6 +13,13 @@ def add_program():
         name = request.form['programname']
         college_code = request.form['college_code']
 
+   
+        existing_program = Program.get_program_by_code(mysql, code)
+        if existing_program:
+            flash('Program already exists.', 'error')
+            return redirect(url_for('program_bp.programs_list'))  
+
+      
         Program.add_program(mysql, code, name, college_code)
         flash('Program Added Successfully', 'success')
         return redirect(url_for('program_bp.programs_list'))
@@ -29,6 +36,7 @@ def update_program(program_code):
     if request.method == 'POST':
         name = request.form['programname']
         college_code = request.form['college_code']
+        
         Program.update_program(mysql, program_code, name, college_code)
         flash('Program Updated Successfully', 'success')
         return redirect(url_for('program_bp.programs_list'))

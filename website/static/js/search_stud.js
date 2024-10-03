@@ -15,6 +15,19 @@ document.getElementById('searchButton').addEventListener('click', function() {
                 document.getElementById('year').value = data.year;
 
                 $('#searchStudentModal').modal('show');
+
+                document.getElementById('firstName').readOnly = true;
+                document.getElementById('lastName').readOnly = true;
+                document.getElementById('program').readOnly = true;
+                document.getElementById('gender').disabled = true;
+                document.getElementById('year').readOnly = true;
+            
+                document.getElementById('doneButton').style.display = 'none';
+                document.getElementById('deletestud').style.display = 'none';
+                document.getElementById('cancelstud').style.display = 'none';
+            
+                document.getElementById('editButton').style.display = 'block';
+                document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
             } else {
                 alert('Student not found');
             }
@@ -22,24 +35,6 @@ document.getElementById('searchButton').addEventListener('click', function() {
         .catch(error => console.error('Error fetching student data:', error));
 });
 
-
-document.getElementById('searchButton').addEventListener('click', function() {
-
-    document.getElementById('firstName').readOnly = true;
-    document.getElementById('lastName').readOnly = true;
-    document.getElementById('program').readOnly = true;
-    document.getElementById('gender').disabled = true;
-    document.getElementById('year').readOnly = true;
-
-    document.getElementById('doneButton').style.display = 'none';
-    document.getElementById('deletestud').style.display = 'none';
-    document.getElementById('cancelstud').style.display = 'none';
-
-    document.getElementById('editButton').style.display = 'block';
-    document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
-
-
-});
 
 document.getElementById('editButton').addEventListener('click', function() {
    
