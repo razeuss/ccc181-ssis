@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages
 from website.models.student import Student
 from flask_mysqldb import MySQL
 from flask import jsonify
@@ -59,9 +59,24 @@ def update_student(student_id):
         year = request.form['year']
         gender = request.form['gender']
 
-        # Update student information in the database
         Student.update_student(mysql, student_id, first_name, last_name, program, year, gender)
         flash('Student Updated Successfully', 'success')
         return redirect(url_for('student_bp.students_list'))
-    
+
     return render_template('Student Template/studentslist.html', student=student)
+
+
+@student_bp.route('/delete/<string:student_id>', methods=['POST'])
+def delete_student(student_id):
+    
+    student = Student.get_student_by_id(mysql, student_id)
+    
+   
+    if not student:
+        flash('Student not found', 'error')
+        return redirect(url_for('student_bp.students_list'))
+    
+   
+    Student.delete_student(mysql, student_id)
+    flash('Student Deleted Successfully', 'success')  
+    return redirect(url_for('student_bp.students_list')) 

@@ -32,8 +32,8 @@ document.getElementById('searchButton').addEventListener('click', function() {
     document.getElementById('year').readOnly = true;
 
     document.getElementById('doneButton').style.display = 'none';
-    document.getElementById('deleteButton').style.display = 'none';
-    document.getElementById('cancelButton').style.display = 'none';
+    document.getElementById('deletestud').style.display = 'none';
+    document.getElementById('cancelstud').style.display = 'none';
 
     document.getElementById('editButton').style.display = 'block';
     document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
@@ -50,10 +50,10 @@ document.getElementById('editButton').addEventListener('click', function() {
         document.getElementById('year').readOnly = false;
 
         document.getElementById('doneButton').style.display = 'block';
-        document.getElementById('deleteButton').style.display = 'block';
-        document.getElementById('cancelButton').style.display = 'block';
+        document.getElementById('deletestud').style.display = 'block';
+        document.getElementById('cancelstud').style.display = 'block';
 
-    document.getElementById('doneButton').style.display = 'block';
+   
     document.getElementById('editButton').style.display = 'none';
     document.getElementById('searchStudentModalLabel').textContent = 'Edit Student Information';
     document.getElementById('addStudentForm').action = '/edit/' + document.getElementById('studentID').value;
@@ -62,7 +62,7 @@ document.getElementById('editButton').addEventListener('click', function() {
 
 });
 
-document.getElementById('cancelButton').addEventListener('click', function() {
+document.getElementById('cancelstud').addEventListener('click', function() {
 
     document.getElementById('firstName').readOnly = true;
     document.getElementById('lastName').readOnly = true;
@@ -71,11 +71,33 @@ document.getElementById('cancelButton').addEventListener('click', function() {
     document.getElementById('year').readOnly = true;
 
     document.getElementById('doneButton').style.display = 'none';
-    document.getElementById('deleteButton').style.display = 'none';
-    document.getElementById('cancelButton').style.display = 'none';
+    document.getElementById('deletestud').style.display = 'none';
+    document.getElementById('cancelstud').style.display = 'none';
 
     document.getElementById('editButton').style.display = 'block';
     document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
 
 
 });
+
+document.getElementById('deletestud').addEventListener('click', function() {
+    const studentID = document.getElementById('studentID').value;
+
+    if (confirm('Are you sure you want to delete this student?')) {
+        
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/delete/${studentID}`;
+        
+        
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'csrf_token'; 
+        hiddenInput.value = '{{ csrf_token() }}';
+        
+        form.appendChild(hiddenInput);
+        document.body.appendChild(form);
+        form.submit(); 
+    }
+});
+

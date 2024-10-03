@@ -27,7 +27,15 @@ class Program:
                     (name, college_code, code))
         mysql.connection.commit()
         cur.close()
-        
+
+    @staticmethod
+    def delete_program(mysql, code):
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM program WHERE code = %s", (code,))
+        mysql.connection.commit()
+        cur.close()
+
+    @staticmethod
     def search_program(mysql, code):
         cur = mysql.connection.cursor()
         cur.execute("SELECT code, name, college_code FROM program WHERE code = %s", (code,))
@@ -36,3 +44,11 @@ class Program:
         if program:
             return Program(*program) 
         return None
+
+    @staticmethod
+    def filter_programs(mysql, college_code):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code, name, college_code FROM program WHERE college_code = %s", (college_code,))
+        programs = cur.fetchall()
+        cur.close()
+        return programs

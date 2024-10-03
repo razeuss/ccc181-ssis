@@ -39,3 +39,9 @@ class Student:
         """, (first_name, last_name, program, year, gender, student_id))
         mysql.connection.commit()
         cur.close()
+        
+    def delete_student(mysql, student_id):
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM student WHERE id = %s", (student_id,))
+        mysql.connection.commit()
+        cur.close()
