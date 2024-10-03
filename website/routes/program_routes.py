@@ -54,4 +54,17 @@ def search_program(code):
         })
     return jsonify(None)
 
+@program_bp.route('/filter', methods=['GET'])
+def filter_programs():
+    college_code = request.args.get('college_code')  
+    if college_code:
+        programs = Program.filter_programs(mysql, college_code)
+    else:
+        programs = Program.get_all_programs(mysql)
+    
+    if not programs:
+        flash(f'No programs found for this college', 'warning')
+
+    return render_template('Program Template/programs.html', programs=programs)
+
 

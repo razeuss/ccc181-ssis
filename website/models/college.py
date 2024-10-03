@@ -18,3 +18,26 @@ class College:
         colleges = cur.fetchall()
         cur.close()
         return colleges
+    
+    @staticmethod
+    def get_college_by_code(mysql, code):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code, name FROM college WHERE code = %s", (code,))
+        college = cur.fetchone()
+        cur.close()
+        return college
+
+    @staticmethod
+    def update_college(mysql, code, name):
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE college SET name = %s WHERE code = %s", 
+                    (name, code))
+        mysql.connection.commit()
+        cur.close()
+
+    @staticmethod
+    def delete_college(mysql, code):
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM college WHERE code = %s", (code,))
+        mysql.connection.commit()
+        cur.close()

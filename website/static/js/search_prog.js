@@ -12,6 +12,17 @@ document.getElementById('searchprog').addEventListener('click', function() {
                 document.getElementById('programName').value = data.name;
 
                 $('#searchProgramModal').modal('show');
+
+                document.getElementById('programCode').readOnly = true;
+                document.getElementById('college_code').disabled = true;
+                document.getElementById('programName').readOnly = true;
+            
+                document.getElementById('doneprog').style.display = 'none';
+                document.getElementById('deleteprog').style.display = 'none';
+                document.getElementById('cancelprog').style.display = 'none';
+            
+                document.getElementById('editButton').style.display = 'block';
+                document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
             } else {
                 alert('Program not found');
             }
@@ -19,21 +30,6 @@ document.getElementById('searchprog').addEventListener('click', function() {
         .catch(error => console.error('Error fetching program data:', error));
 });
 
-document.getElementById('searchprog').addEventListener('click', function() {
-
-    document.getElementById('programCode').readOnly = true;
-    document.getElementById('college_code').disabled = true;
-    document.getElementById('programName').readOnly = true;
-
-    document.getElementById('doneprog').style.display = 'none';
-    document.getElementById('deleteprog').style.display = 'none';
-    document.getElementById('cancelprog').style.display = 'none';
-
-    document.getElementById('editButton').style.display = 'block';
-    document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
-
-
-});
 
 document.getElementById('editprog').addEventListener('click', function() {
    
@@ -90,4 +86,9 @@ document.getElementById('deleteprog').addEventListener('click', function() {
     }
 });
 
+
+document.getElementById('collegeCode').addEventListener('change', function() {
+    const selectedCollegeCode = document.getElementById('collegeCode').value;
+    window.location.href = `/filter?college_code=${selectedCollegeCode}`;
+});
 

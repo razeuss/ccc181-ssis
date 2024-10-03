@@ -7,19 +7,20 @@
 <div class="container mt-5">
 
     <div class="d-flex align-items-center justify-content-start">
-        <!-- Search input -->
+       
         <div class="input-group w-50" style="margin-right: 15px;">
-            <input type="text" class="form-control" style="border-color: black;" placeholder="Type college name" aria-label="Search colleges" aria-describedby="searchButton">
-            <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
+            <input type="text" class="form-control" id="collegeinput"style="border-color: black;" placeholder="Type college name" aria-label="Search colleges" aria-describedby="searchButton">
+            <button class="btn btn-primary" type="button" id="searchCollegeBtn">SEARCH</button>
         </div>
 
-        <!-- Add College button -->
-        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        
+        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addcoll">
             ADD COLLEGE
         </button>
     </div>
 
     {% include 'College Template/college_modal.html' %}
+    {% include 'College Template/search_college.html' %}
 
     <table class="mt-3 table table-bordered">
         <thead>
@@ -29,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Loop through colleges data -->
+           
             {% for college in colleges %}
             <tr>
                 <td>{{ college[0] }}</td>

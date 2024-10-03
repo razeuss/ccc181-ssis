@@ -1,9 +1,9 @@
 
-<form id="addProgramForm" method="POST" action="/add_program">
+<form id="addProgramForm" method="POST" action="/addcollege">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-5 offset-md-1">
-          <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+          <div class="modal fade" id="addcoll" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered custom-modal-width">
               <div class="modal-content">
                 <div class="modal-header">
@@ -11,14 +11,14 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body mb-4 mx-4" id="addModalBody">
-                  <form id="addProgramForm" method="post" action="/add_program">
+                  <form id="addCollegeForm" method="post" action="/add_college">
                       <div class="mb-3">
-                        <label for="programCode" class="form-label" style="opacity: 0.7;">College Code</label>
-                        <input type="text" class="form-control" style="border-color: black;" id="programCode" name="programcode" required>
+                        <label for="collegeCode" class="form-label" style="opacity: 0.7;">College Code</label>
+                        <input type="text" class="form-control" style="border-color: black;" id="programCode" name="collegecode" required>
                       </div>
                     <div class="mb-3">
-                      <label for="programName" class="form-label" style="opacity: 0.7;">College Name</label>
-                      <input type="text" class="form-control" style="border-color: black;" id="programName" name="programname" required>
+                      <label for="collegeName" class="form-label" style="opacity: 0.7;">College Name</label>
+                      <input type="text" class="form-control" style="border-color: black;" id="programName" name="collegename" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3" style="height: 45px;">DONE</button>
                   </form>
