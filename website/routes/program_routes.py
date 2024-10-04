@@ -34,10 +34,12 @@ def programs_list():
 @program_bp.route('/update/<string:program_code>', methods=['GET', 'POST'])
 def update_program(program_code):
     if request.method == 'POST':
+        new_code = request.form['programcode']  # Updated program code
         name = request.form['programname']
         college_code = request.form['college_code']
-        
-        Program.update_program(mysql, program_code, name, college_code)
+
+        # Update the program with the new code and details
+        Program.update_program(mysql, program_code, new_code, name, college_code)
         flash('Program Updated Successfully', 'success')
         return redirect(url_for('program_bp.programs_list'))
 

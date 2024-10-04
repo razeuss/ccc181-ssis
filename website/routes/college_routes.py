@@ -44,9 +44,10 @@ def search_college(code):
 @college_bp.route('/updatecollege/<string:code>', methods=['GET', 'POST'])
 def update_college(code):
     if request.method == 'POST':
+        new_code = request.form['collegecode']
         name = request.form['collegename']
         
-        College.update_college(mysql, code, name,)
+        College.update_college(mysql, code, new_code, name)
         flash('College Updated Successfully', 'success')
         return redirect(url_for('college_bp.colleges_list'))
 
@@ -57,6 +58,8 @@ def delete_college(code):
     College.delete_college(mysql, code)
     flash('College Deleted Successfully', 'success')
     return redirect(url_for('college_bp.colleges_list'))
+
+
 
 
 

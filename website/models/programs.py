@@ -21,10 +21,13 @@ class Program:
         return programs
 
     @staticmethod
-    def update_program(mysql, code, name, college_code):
+    def update_program(mysql, old_code, new_code, name, college_code):
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE program SET name = %s, college_code = %s WHERE code = %s", 
-                    (name, college_code, code))
+        cur.execute("""
+            UPDATE program 
+            SET code = %s, name = %s, college_code = %s 
+            WHERE code = %s
+        """, (new_code, name, college_code, old_code))
         mysql.connection.commit()
         cur.close()
 

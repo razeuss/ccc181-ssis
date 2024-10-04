@@ -28,10 +28,10 @@ class College:
         return college
 
     @staticmethod
-    def update_college(mysql, code, name):
+    def update_college(mysql, old_code, new_code, name):
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE college SET name = %s WHERE code = %s", 
-                    (name, code))
+        cur.execute("UPDATE college SET code = %s, name = %s WHERE code = %s", 
+                    (new_code, name, old_code))
         mysql.connection.commit()
         cur.close()
 
@@ -49,5 +49,5 @@ class College:
         college = cursor.fetchone()
         cursor.close()
         return college
-        
+    
         

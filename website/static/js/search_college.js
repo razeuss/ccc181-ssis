@@ -32,14 +32,13 @@ document.getElementById('searchCollegeBtn').addEventListener('click', function()
 });
 
 document.getElementById('editcollege').addEventListener('click', function() {
-    document.getElementById('collegeCode').readOnly = true;
+    document.getElementById('collegeCode').readOnly = false;  // Allow editing code now
     document.getElementById('collegeName').readOnly = false;
 
     document.getElementById('donecollege').style.display = 'block';
     document.getElementById('deletecollege').style.display = 'block';
     document.getElementById('cancelcollege').style.display = 'block';
 
-    document.getElementById('donecollege').style.display = 'block';
     document.getElementById('editcollege').style.display = 'none';
     document.getElementById('searchcollegelabel').textContent = 'Edit College Information';
   
@@ -77,3 +76,5 @@ document.getElementById('deletecollege').addEventListener('click', function() {
         form.submit();
     }
 });
+
+

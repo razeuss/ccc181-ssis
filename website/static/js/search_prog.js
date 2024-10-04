@@ -32,23 +32,19 @@ document.getElementById('searchprog').addEventListener('click', function() {
 
 
 document.getElementById('editprog').addEventListener('click', function() {
-   
+    document.getElementById('programCode').readOnly = false;  
+    document.getElementById('college_code').disabled = false;
+    document.getElementById('programName').readOnly = false;
+
+    document.getElementById('doneprog').style.display = 'block';
+    document.getElementById('deleteprog').style.display = 'block';
+    document.getElementById('cancelprog').style.display = 'block';
+
+    document.getElementById('editprog').style.display = 'none';
+    document.getElementById('searchProgramModalLabel').textContent = 'Edit Program Information';
   
-       document.getElementById('programCode').readOnly = true;
-       document.getElementById('college_code').disabled = false;
-       document.getElementById('programName').readOnly = false;
-
-       document.getElementById('doneprog').style.display = 'block';
-       document.getElementById('deleteprog').style.display = 'block';
-       document.getElementById('cancelprog').style.display = 'block';
-
-   document.getElementById('doneprog').style.display = 'block';
-   document.getElementById('editprog').style.display = 'none';
-   document.getElementById('searchProgramModalLabel').textContent = 'Edit Program Information';
-  
-   document.getElementById('addProgramForm').action = '/update/' + document.getElementById('programCode').value;
-   document.getElementById('doneprog').textContent = 'SAVE';
-
+    document.getElementById('addProgramForm').action = '/update/' + document.getElementById('programCode').value;
+    document.getElementById('doneprog').textContent = 'SAVE';
 });
 
 document.getElementById('cancelprog').addEventListener('click', function() {
