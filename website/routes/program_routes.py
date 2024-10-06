@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from website.models.programs import Program
 from website import MySQL
-from flask import jsonify
 
 program_bp = Blueprint('program_bp', __name__)
 mysql = MySQL()
@@ -13,13 +12,11 @@ def add_program():
         name = request.form['programname']
         college_code = request.form['college_code']
 
-   
         existing_program = Program.get_program_by_code(mysql, code)
         if existing_program:
             flash('Program already exists.', 'error')
             return redirect(url_for('program_bp.programs_list'))  
 
-      
         Program.add_program(mysql, code, name, college_code)
         flash('Program Added Successfully', 'success')
         return redirect(url_for('program_bp.programs_list'))
@@ -52,16 +49,26 @@ def delete_program(code):
     flash('Program Deleted Successfully', 'success')
     return redirect(url_for('program_bp.programs_list'))
 
-@program_bp.route('/program/<string:code>')
-def search_program(code):
-    program = Program.search_program(mysql, code)
+@program_bp.route('/program', methods=['GET'])
+def search_program():
+    query = request.args.get('query')
     
-    if program:
+    program_by_code = Program.search_program(mysql, query)
+    if program_by_code:
         return jsonify({
-            'code': program.code,
-            'name': program.name,
-            'college_code': program.college_code
+            'code': program_by_code.code,          # Accessing the properties of Program object
+            'name': program_by_code.name,
+            'college_code': program_by_code.college_code,
         })
+        
+    program_by_name = Program.search_program_by_name(mysql, query)
+    if program_by_name:
+        return jsonify({
+            'code': program_by_name[0],
+            'name': program_by_name[1],
+            'college_code': program_by_name[2],
+        })
+        
     return jsonify(None)
 
 @program_bp.route('/filter', methods=['GET'])
@@ -73,8 +80,6 @@ def filter_programs():
         programs = Program.get_all_programs(mysql)
     
     if not programs:
-        flash(f'No programs found for this college', 'warning')
+        flash('No programs found for this college', 'warning')
 
     return render_template('Program Template/programs.html', programs=programs)
-
-

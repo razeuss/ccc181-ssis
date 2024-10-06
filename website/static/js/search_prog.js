@@ -1,7 +1,7 @@
 document.getElementById('searchprog').addEventListener('click', function() {
-    const program_code = document.getElementById('programinput').value;
+    const query = document.getElementById('programinput').value;
 
-    fetch(`/program/${program_code}`)
+    fetch(`/program?query=${query}`)
         .then(response => response.json())
         .then(data => {
             console.log('Fetched data:', data); 
@@ -16,7 +16,7 @@ document.getElementById('searchprog').addEventListener('click', function() {
                 document.getElementById('programCode').readOnly = true;
                 document.getElementById('college_code').disabled = true;
                 document.getElementById('programName').readOnly = true;
-            
+
                 document.getElementById('doneprog').style.display = 'none';
                 document.getElementById('deleteprog').style.display = 'none';
                 document.getElementById('cancelprog').style.display = 'none';

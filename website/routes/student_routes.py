@@ -40,17 +40,40 @@ def students_list():
     students = Student.get_all_students(mysql)
     return render_template('Student Template/studentslist.html', students=students)
 
-@student_bp.route('/student/<string:student_id>')
-def get_student(student_id):
-    student = Student.get_student_by_id(mysql, student_id)
-    if student:
+@student_bp.route('/student', methods=['GET'])
+def get_student():
+    query = request.args.get('query')
+    
+    student_id = Student.get_student_by_id(mysql, query)
+    if student_id:
         return jsonify({
-            'firstname': student.firstname,
-            'lastname': student.lastname,
-            'id': student.id,
-            'program_code': student.program_code,
-            'gender': student.gender,
-            'year': student.year
+            'firstname': student_id.firstname,
+            'lastname': student_id.lastname,
+            'id': student_id.id,
+            'program_code': student_id.program_code,
+            'gender': student_id.gender,
+            'year': student_id.year
+        })
+    
+    student_firstname= Student.get_student_by_firstname(mysql, query)
+    if student_firstname:
+        return jsonify({
+            'firstname': student_firstname.firstname,
+            'lastname': student_firstname.lastname,
+            'id': student_firstname.id,
+            'program_code': student_firstname.program_code,
+            'gender': student_firstname.gender,
+            'year': student_firstname.year
+        })
+    student_lastname= Student.get_student_by_lastname(mysql, query)
+    if student_lastname:
+        return jsonify({
+            'firstname': student_lastname.firstname,
+            'lastname': student_lastname.lastname,
+            'id': student_lastname.id,
+            'program_code': student_lastname.program_code,
+            'gender': student_lastname.gender,
+            'year': student_lastname.year
         })
     return jsonify(None)
 

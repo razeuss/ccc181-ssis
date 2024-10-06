@@ -1,19 +1,21 @@
 document.getElementById('searchCollegeBtn').addEventListener('click', function() {
-    const college_code = document.getElementById('collegeinput').value;
+    const query = document.getElementById('collegeinput').value;
 
-    fetch(`/search_college/${college_code}`)
+    // Make a GET request to the search route with the query (either code or name)
+    fetch(`/search_college?query=${query}`)
         .then(response => response.json())
         .then(data => {
-            console.log('Fetched data:', data); 
+            console.log('Fetched data:', data);
 
             if (data) {
-                document.getElementById('collegeCode').value = data.code;  
-                document.getElementById('collegeName').value = data.name;  
+                // If the college is found, populate the fields
+                document.getElementById('collegeCode').value = data.code;
+                document.getElementById('collegeName').value = data.name;
 
-               
+                // Show the modal with college info
                 $('#searchcollege').modal('show');
 
-                
+                // Make fields read-only and hide action buttons (edit mode)
                 document.getElementById('collegeCode').readOnly = true;
                 document.getElementById('collegeName').readOnly = true;
 
@@ -23,13 +25,13 @@ document.getElementById('searchCollegeBtn').addEventListener('click', function()
 
                 document.getElementById('editcollege').style.display = 'block';
                 document.getElementById('searchcollegelabel').textContent = 'College Information';
-
             } else {
                 alert('College not found');
             }
         })
         .catch(error => console.error('Error fetching college data:', error));
 });
+
 
 document.getElementById('editcollege').addEventListener('click', function() {
     document.getElementById('collegeCode').readOnly = false;  // Allow editing code now

@@ -29,6 +29,24 @@ class Student:
         if result:
             return Student(*result) 
         return None
+    
+    def get_student_by_firstname(mysql, first_name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM student WHERE firstname = %s", (first_name,))
+        result = cur.fetchone()
+        cur.close()
+        if result:
+            return Student(*result) 
+        return None
+    
+    def get_student_by_lastname(mysql, last_name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM student WHERE lastname = %s", (last_name,))
+        result = cur.fetchone()
+        cur.close()
+        if result:
+            return Student(*result) 
+        return None
    
     def update_student(mysql, student_id, first_name, last_name, program, year, gender):
         cur = mysql.connection.cursor()

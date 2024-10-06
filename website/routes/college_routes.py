@@ -29,16 +29,29 @@ def colleges_list():
     colleges = College.get_all_colleges(mysql)
     return render_template('College Template/college.html', colleges=colleges)
 
-@college_bp.route('/search_college/<string:code>', methods=['GET']) 
-def search_college(code):
-    college = College.get_college_by_code(mysql, code)
-    
-    if college:
+@college_bp.route('/search_college', methods=['GET'])
+def search_college():
+    query = request.args.get('query')
+
+    # Try searching by code first
+    college_by_code = College.get_college_by_code(mysql, query)
+    if college_by_code:
         return jsonify({
-            'code': college[0], 
-            'name': college[1],
+            'code': college_by_code[0], 
+            'name': college_by_code[1],
         })
+    
+    # If no college is found by code, try searching by name
+    college_by_name = College.get_college_by_name(mysql, query)
+    if college_by_name:
+        return jsonify({
+            'code': college_by_name[0], 
+            'name': college_by_name[1],
+        })
+
+    # If no result found in either code or name, return None
     return jsonify(None)
+
 
 
 @college_bp.route('/updatecollege/<string:code>', methods=['GET', 'POST'])

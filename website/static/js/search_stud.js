@@ -1,8 +1,8 @@
 document.getElementById('searchButton').addEventListener('click', function() {
-    const studentID = document.getElementById('studentSearch').value;
+    const query = document.getElementById('studentSearch').value;
 
-    // Fetch student data from the server
-    fetch(`/student/${studentID}`)
+   
+    fetch(`/student?query=${query}`)
         .then(response => response.json())
         .then(data => {
             if (data) {

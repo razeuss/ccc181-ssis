@@ -6,8 +6,7 @@ class College:
     @staticmethod
     def add_college(mysql, code, name):
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO college (code, name) VALUES (%s, %s)", 
-                    (code, name))
+        cur.execute("INSERT INTO college (code, name) VALUES (%s, %s)", (code, name))
         mysql.connection.commit()
         cur.close()
 
@@ -18,7 +17,7 @@ class College:
         colleges = cur.fetchall()
         cur.close()
         return colleges
-    
+
     @staticmethod
     def get_college_by_code(mysql, code):
         cur = mysql.connection.cursor()
@@ -26,6 +25,15 @@ class College:
         college = cur.fetchone()
         cur.close()
         return college
+
+    @staticmethod
+    def get_college_by_name(mysql, name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code, name FROM college WHERE name = %s", (name,))
+        college = cur.fetchone()
+        cur.close()
+        return college
+
 
     @staticmethod
     def update_college(mysql, old_code, new_code, name):
@@ -41,13 +49,3 @@ class College:
         cur.execute("DELETE FROM college WHERE code = %s", (code,))
         mysql.connection.commit()
         cur.close()
-        
-        
-    def get_college_by_code(mysql, code):
-        cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM college WHERE code = %s", (code,))
-        college = cursor.fetchone()
-        cursor.close()
-        return college
-    
-        

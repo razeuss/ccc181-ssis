@@ -56,9 +56,18 @@ class Program:
         cur.close()
         return programs
     
+    @staticmethod
     def get_program_by_code(mysql, code):
-        cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM program WHERE code = %s", (code,))
-        program = cursor.fetchone()
-        cursor.close()
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM program WHERE code = %s", (code,))
+        program = cur.fetchone()
+        cur.close()
+        return program
+    
+    @staticmethod
+    def search_program_by_name(mysql, name):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code, name, college_code FROM program WHERE name = %s", (name,))
+        program = cur.fetchone()  
+        cur.close()
         return program
