@@ -13,6 +13,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
                 document.getElementById('program').value = data.program_code;
                 document.getElementById('gender').value = data.gender;
                 document.getElementById('year').value = data.year;
+                document.getElementById('studentImage').src = data.image_url || '/path/to/default-image.jpg';
 
                 $('#searchStudentModal').modal('show');
 
@@ -25,6 +26,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
                 document.getElementById('doneButton').style.display = 'none';
                 document.getElementById('deletestud').style.display = 'none';
                 document.getElementById('cancelstud').style.display = 'none';
+                document.getElementById('updateimage').style.display = 'none';
             
                 document.getElementById('editButton').style.display = 'block';
                 document.getElementById('searchStudentModalLabel').textContent = 'Student Information';
@@ -47,6 +49,7 @@ document.getElementById('editButton').addEventListener('click', function() {
         document.getElementById('doneButton').style.display = 'block';
         document.getElementById('deletestud').style.display = 'block';
         document.getElementById('cancelstud').style.display = 'block';
+        document.getElementById('updateimage').style.display = 'block';
 
    
     document.getElementById('editButton').style.display = 'none';

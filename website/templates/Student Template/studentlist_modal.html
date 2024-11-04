@@ -1,5 +1,5 @@
 
-<form id="addStudentForm" method="POST" action="/add">
+<form id="addStudentForm" method="POST" action="/add" enctype="multipart/form-data">
  <div class="container-fluid">
     <div class="row">
         <div class="col-md-5 offset-md-1">
@@ -11,6 +11,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body mb-4 mx-4" id="addModalBody">
+
+                            
+                            <div class="mb-3" >
+                                <label for="image" class="form-label"  style="opacity: 0.7;">Upload Profile Image</label>
+                                <input type="file" class="form-control" style="border-color: black;" name="image" id="image">
+                            </div>
 
                             <form id="addStudentForm" method="post" action="/add_student">
                                 <div class="row">

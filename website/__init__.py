@@ -1,5 +1,14 @@
 from flask import Flask
 from flask_mysqldb import MySQL
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name='dy6xdxgvl',
+    api_key='484464816794794',
+    api_secret='HLw5tgKnuys4IWnpOmTqV_jz-S0'
+)
 
 
 def create_app():

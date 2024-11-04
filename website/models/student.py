@@ -1,38 +1,48 @@
+from cloudinary.uploader import upload as cloudinary_upload
+
 class Student:
-    def __init__(self, id, firstname, lastname, program_code, year, gender):
+    def __init__(self, id, firstname, lastname, program_code, year, gender, image_url=None):
         self.id = id
         self.firstname = firstname
         self.lastname = lastname
         self.program_code = program_code
         self.year = year
         self.gender = gender
+        self.image_url = image_url
 
-    def add_student(mysql, student_id, first_name, last_name, program, year, gender):
+    def add_student(mysql, student_id, first_name, last_name, program, year, gender, image_file):
+        
+        upload_result = cloudinary_upload(image_file)
+        image_url = upload_result.get("secure_url")
+
+       
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO student (id, firstname, lastname, program_code, year, gender) VALUES (%s, %s, %s, %s, %s, %s)", 
-                    (student_id, first_name, last_name, program, year, gender))
+        cur.execute(
+            "INSERT INTO student (id, firstname, lastname, program_code, year, gender, image_url) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (student_id, first_name, last_name, program, year, gender, image_url)
+        )
         mysql.connection.commit()
         cur.close()
 
     def get_all_students(mysql):
         cur = mysql.connection.cursor()
-        cur.execute("SELECT firstname, lastname, id, program_code, gender, year FROM student")
+        cur.execute("SELECT firstname, lastname, id, program_code, gender, year, image_url FROM student")
         students = cur.fetchall()
         cur.close()
         return students
     
     def get_student_by_id(mysql, student_id):
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM student WHERE id = %s", (student_id,))
+        cur.execute("SELECT id, firstname, lastname, program_code, year, gender, image_url FROM student WHERE id = %s", (student_id,))
         result = cur.fetchone()
         cur.close()
         if result:
-            return Student(*result) 
+            return Student(*result)  # Only selecting the required columns
         return None
     
     def get_student_by_firstname(mysql, first_name):
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM student WHERE firstname = %s", (first_name,))
+        cur.execute("SELECT id, firstname, lastname, program_code, year, gender, image_url FROM student WHERE firstname = %s", (first_name,))
         result = cur.fetchone()
         cur.close()
         if result:
@@ -41,20 +51,35 @@ class Student:
     
     def get_student_by_lastname(mysql, last_name):
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM student WHERE lastname = %s", (last_name,))
+        cur.execute("SELECT id, firstname, lastname, program_code, year, gender, image_url FROM student WHERE lastname = %s", (last_name,))
         result = cur.fetchone()
         cur.close()
         if result:
             return Student(*result) 
         return None
    
-    def update_student(mysql, student_id, first_name, last_name, program, year, gender):
+    @staticmethod
+    def update_student(mysql, student_id, first_name, last_name, program, year, gender, image_file=None):
+        image_url = None
+        if image_file:
+            upload_result = cloudinary_upload(image_file)
+            image_url = upload_result.get("secure_url")
+        
         cur = mysql.connection.cursor()
-        cur.execute("""
-            UPDATE student 
-            SET firstname = %s, lastname = %s, program_code = %s, year = %s, gender = %s 
-            WHERE id = %s
-        """, (first_name, last_name, program, year, gender, student_id))
+        
+        if image_url:
+            cur.execute("""
+                UPDATE student 
+                SET firstname = %s, lastname = %s, program_code = %s, year = %s, gender = %s, image_url = %s
+                WHERE id = %s
+            """, (first_name, last_name, program, year, gender, image_url, student_id))
+        else:
+            cur.execute("""
+                UPDATE student 
+                SET firstname = %s, lastname = %s, program_code = %s, year = %s, gender = %s
+                WHERE id = %s
+            """, (first_name, last_name, program, year, gender, student_id))
+        
         mysql.connection.commit()
         cur.close()
         
