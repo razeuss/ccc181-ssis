@@ -6,20 +6,20 @@
 
 <div class="container mt-5">
    
-    <div class="d-flex align-items-center justify-content-start">
+    <div class="row d-flex align-items-center justify-content-start gap-3">
        
-        <div class="input-group w-50" style="margin-right: 15px;">
-            <input type="text" class="form-control" id="programinput" style="border-color: black;" placeholder="Type program name" aria-label="Search programs" aria-describedby="searchButton">
-            <button class="btn btn-primary" type="button" id="searchprog">SEARCH</button>
+        <div class="input-group w-50">
+            <input type="text" class="inpsearch form-control" id="programinput" style="border-color: black;" placeholder="Search" aria-label="Search programs" aria-describedby="searchButton">
+            <button class="search btn btn-primary" type="button" id="searchprog"><i class="fas fa-search"></i></button></button>
         </div>
 
       
-        <button type="button" style="background-color: #2ECC71; border-color: #2ECC71; margin-right: 170px;" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addModal">
+        <button style="margin-left: 135px;" type="button" class="primbutton btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addModal">
             ADD PROGRAM
         </button>
 
 
-        <select class="form-select w-25" style="border-color: black;" id="collegeCode" name="collegecode" required>
+        <select class="form-select w-25" style="border-color: black;  height: 45px;" id="collegeCode" name="collegecode" required>
           <option value="" style="opacity: 0.7;" disabled selected>Select College</option>
           <option value="CCS">CCS</option>
           <option value="CED">CED</option>

@@ -25,13 +25,13 @@ def create_app():
     from .main_route import views
     app.register_blueprint(views)
     
-    from .routes.student_routes import student_bp
+    from .Controller.student_routes import student_bp
     app.register_blueprint(student_bp)
     
-    from .routes.program_routes import program_bp
+    from .Controller.program_routes import program_bp
     app.register_blueprint(program_bp)
     
-    from .routes.college_routes import college_bp
+    from .Controller.college_routes import college_bp
     app.register_blueprint(college_bp)
 
     return app

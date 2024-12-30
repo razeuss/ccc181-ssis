@@ -5,10 +5,11 @@
 {% block content %}
 
 <div class="content">
-    <div class="d-flex justify-content-center mt-5">
-        <div class="input-group w-25">
-            <input id="studentSearch" type="text" class="form-control" style="border-color: black;" placeholder="Type Student ID" aria-label="Search students" aria-describedby="searchButton">
-            <button class="btn btn-primary" type="button" id="searchButton">SEARCH</button>
+    <div class="d-flex mx-auto justify-content-center mt-5">
+        <div class="row d-flex input-group w-25">
+            <input class="inpsearch" id="studentSearch" type="text" class="form-control" placeholder="Search" aria-label="Search students" aria-describedby="searchButton">
+                <button class="search" type="button" id="searchButton">
+                <i class="fas fa-search"></i></button>
         </div>
     </div>
 </div>

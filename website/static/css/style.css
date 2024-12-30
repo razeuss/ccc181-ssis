@@ -25,11 +25,12 @@
 }
 
 
-.sidebar-btn:active {
+.sidebar-btn:click {
     background-color: lightgray;
     color: black;
     font-weight: bold;
 }
+
 
 table {
     width: 100%;
@@ -69,4 +70,43 @@ tbody tr:hover {
 td {
     font-size: 15px;
     color: #555;
+}
+
+.search {
+    background-color: white;
+    border: 1px solid black;
+    border-left: none;
+    color: #550000;
+    width: 50px;
+    height: 45px;
+    border-radius: 10px;
+}
+
+.inpsearch {
+    background-color: white;
+    border-right: none;
+    border: 1px solid black;
+    width: 400px;
+    height: 45px;
+    border-radius: 10px;
+
+}
+
+.inpsearch:focus {
+    background-color: white;
+    border-right: none;
+    border: 1px solid black;
+    width: 400px;
+    height: 45px;
+    border-radius: 10px;
+    outline: none;
+
+}
+
+.primbutton {
+    background-color: #550000;
+    color: white;
+    border: none;
+    height: 45px;
+    width: 150px;
 }
