@@ -1,0 +1,15 @@
+from os import getenv
+
+CLOUD_NAME=getenv("CLOUD_NAME")
+CLOUD_API_KEY=getenv("CLOUD_API_KEY")
+CLOUD_API_SECRET=getenv("CLOUD_API_SECRET")
+
+SECRET_KEY=getenv("SECRET_KEY")
+MYSQL_HOST=getenv("MYSQL_HOST")
+MYSQL_USER=getenv("MYSQL_USER")
+MYSQL_PASSWORD=getenv("MYSQL_PASSWORD")
+MYSQL_DB=getenv("MYSQL_DB")
+
+
+
+
