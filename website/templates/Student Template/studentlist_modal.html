@@ -1,91 +1,126 @@
-
 <form id="addStudentForm" method="POST" action="/add" enctype="multipart/form-data">
- <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5 offset-md-1">
-            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered custom-modal-width">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addModalLabel">Student Information</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered custom-modal-width">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Student Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body mb-4 mx-4">
+
+                  
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Upload Profile Image</label>
+                        <input type="file" class="form-control" name="image" id="image" accept="image/*">
+                        <small class="text-muted">Optional. Must be JPG, PNG, or GIF under 5 MB.</small>
+                    </div>
+
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
                         </div>
-                        <div class="modal-body mb-4 mx-4" id="addModalBody">
-
-                            
-                            <div class="mb-3">
-                                <label for="image" class="form-label" style="opacity: 0.7;">Upload Profile Image</label>
-                                <input type="file" class="form-control" style="border-color: black;" 
-                                    name="image" id="image" accept="image/*">
-                                <small class="text-muted">Optional. Must be an image (JPG, PNG, GIF) and not exceed 5 MB.</small>
-                            </div>
-
-                            <script>
-                            document.getElementById('image').addEventListener('change', function() {
-                                if (this.files[0]) {
-                                    const file = this.files[0];
-                                    const maxSize = 5 * 1024 * 1024; // 5 MB
-
-                                    if (!file.type.startsWith('image/')) {
-                                        alert('Only image files are allowed.');
-                                        this.value = ''; 
-                                    } else if (file.size > maxSize) {
-                                        alert('Image size must not exceed 5 MB.');
-                                        this.value = ''; 
-                                    }
-                                }
-                            });
-                            </script>
-
-                            <form id="addStudentForm" method="post" action="/add_student">
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="firstName" class="form-label" style="opacity: 0.7;">First Name</label>
-                                        <input type="text" class="form-control" style="border-color: black;" id="firstName" name="firstName" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="lastName" class="form-label" style="opacity: 0.7;">Last Name</label>
-                                        <input type="text" class="form-control" style="border-color: black;" id="lastName" name="lastName" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="studentID" class="form-label" style="opacity: 0.7;">Student ID</label>
-                                    <input type="text" class="form-control" style="border-color: black;" id="studentID" name="studentID" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="program" class="form-label" style="opacity: 0.7;">Program</label>
-                                    <select class="form-select" style="border-color: black;" id="program" name="program" required>
-                                        <option value="" disabled selected>Select Program</option>
-                                        {% for program in programs %}
-                                            <option value="{{ program[0] }}">
-                                                {{ program[0] }} - {{ program[1] }} ({{ program[2] }})
-                                            </option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="gender" class="form-label" style="opacity: 0.7;">Gender</label>
-                                        <select class="form-select" style="border-color: black;" id="gender" name="gender" required>
-                                            <option value="" style="opacity: 0.7;" disabled selected> </option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="year" class="form-label" style="opacity: 0.7;">Year Level</label>
-                                        <input type="number" class="form-control" style="border-color: black;" id="year" name="year" required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn w-100 mt-3" style="height: 45px; background-color: #2ECC71; border-color: #2ECC71; color: white;">DONE</button>
-                            </form>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
                         </div>
                     </div>
+
+                  
+                    <div class="mb-3">
+                        <label for="studentID" class="form-label">Student ID</label>
+                        <input type="text"
+                               class="form-control"
+                               id="studentID"
+                               name="studentID"
+                               required
+                               maxlength="9"
+                               pattern="\d{4}-\d{4}"
+                               title="Format: 1234-5678"
+                               inputmode="numeric"
+                               autocomplete="off">
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        <label for="program" class="form-label">Program</label>
+                        <select class="form-select" id="program" name="program" required>
+                            <option value="" disabled selected>Select Program</option>
+                            {% for program in programs %}
+                                <option value="{{ program[0] }}">
+                                    {{ program[0] }} - {{ program[1] }} ({{ program[2] }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Gender / Year -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" name="gender" required>
+                                <option value="" disabled selected> </option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="year" class="form-label">Year Level</label>
+                            <input type="number" class="form-control" id="year" name="year" min="1" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn w-100 mt-3" style="background-color: #2ECC71; color: white;">DONE</button>
+
                 </div>
             </div>
         </div>
     </div>
- </div>
 </form>
 
+<script>
+
+document.getElementById('image').addEventListener('change', function() {
+    if (this.files[0]) {
+        const file = this.files[0];
+        if (!file.type.startsWith('image/')) {
+            alert('Only image files are allowed.');
+            this.value = '';
+        } else if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must not exceed 5 MB.');
+            this.value = '';
+        }
+    }
+});
+
+(function() {
+    const studentInput = document.getElementById('studentID');
+
+    studentInput.addEventListener('input', (e) => {
+        let v = e.target.value || '';
+        v = v.replace(/\D/g, '').slice(0, 8);
+        if (v.length > 4) v = v.slice(0,4) + '-' + v.slice(4);
+        e.target.value = v;
+        studentInput.setCustomValidity(/^\d{4}-\d{4}$/.test(v) ? '' : 'Format must be 1234-5678');
+    });
+
+    studentInput.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        const allowed = ['Backspace','ArrowLeft','ArrowRight','Delete','Tab','Home','End'];
+        if (allowed.includes(e.key)) return;
+        if (!/^\d$/.test(e.key)) e.preventDefault();
+    });
+
+    studentInput.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const digits = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 8);
+        let v = digits;
+        if (v.length > 4) v = v.slice(0,4) + '-' + v.slice(4);
+        studentInput.value = v;
+        studentInput.dispatchEvent(new Event('input'));
+    });
+})();
+</script>

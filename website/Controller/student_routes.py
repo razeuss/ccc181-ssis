@@ -3,6 +3,7 @@ from website.models.student import Student
 from website.models.programs import Program
 from flask_mysqldb import MySQL
 from flask import jsonify
+import re
 
 student_bp = Blueprint('student_bp', __name__)
 mysql = MySQL()
@@ -10,29 +11,46 @@ mysql = MySQL()
 @student_bp.route('/add', methods=['GET', 'POST'])
 def addstud():
     if request.method == 'POST':
-        student_id = request.form['studentID']
+        student_id = request.form.get('studentID', '').strip()
         first_name = request.form['firstName']
         last_name = request.form['lastName']
-        program = request.form['program']  # This will be program code now
+        program = request.form['program']
         year = request.form['year']
         gender = request.form['gender']
         image_file = request.files['image']
 
+        # Validate Student ID
+        if not re.fullmatch(r"\d{4}-\d{4}", student_id):
+            flash('Invalid Student ID format. Use ####-#### (8 digits with a dash).', 'error')
+            return redirect(url_for('student_bp.students_list'))
+
+        # Validate Year Level
+        try:
+            year_int = int(year)
+            if year_int < 1:
+                flash('Year level must be at least 1.', 'error')
+                return redirect(url_for('student_bp.students_list'))
+        except ValueError:
+            flash('Year level must be a number.', 'error')
+            return redirect(url_for('student_bp.students_list'))
+
+        # Check if student exists
         existing_student = Student.get_student_by_id(mysql, student_id)
         if existing_student:
             flash('Student ID already exists. Please use a unique ID.', 'error')
             return redirect(url_for('student_bp.students_list'))
 
+        # Check program validity
         program_exists = Program.search_program(mysql, program)
         if not program_exists:
             flash('The program does not exist. Please choose a valid program.', 'error')
             return redirect(url_for('student_bp.students_list'))
 
+        # Add student
         Student.add_student(mysql, student_id, first_name, last_name, program, year, gender, image_file)
         flash('Student Added Successfully', 'success')
         return redirect(url_for('student_bp.students_list'))
 
-    
     programs = Program.get_all_programs(mysql)
     return render_template("Student Template/studentslist.html", programs=programs)
 
