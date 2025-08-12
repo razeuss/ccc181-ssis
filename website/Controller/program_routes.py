@@ -79,18 +79,23 @@ def search_program():
 
 @program_bp.route('/filter', methods=['GET'])
 def filter_programs():
-    college_code = request.args.get('college_code')  
-    if college_code:
+    college_code = request.args.get('college_code', 'all')  # default is 'all'
+    
+    if college_code != 'all':
         programs = Program.filter_programs(mysql, college_code)
-        colleges = College.get_all_collegecodes(mysql)
     else:
         programs = Program.get_all_programs(mysql)
-        colleges = College.get_all_collegecodes(mysql)
-    
+
+    colleges = College.get_all_collegecodes(mysql)
+
     if not programs:
         flash('No programs found for this college', 'warning')
-        colleges = College.get_all_collegecodes(mysql)
 
-    return render_template('Program Template/programs.html', programs=programs, colleges=colleges)
+    return render_template(
+        'Program Template/programs.html',
+        programs=programs,
+        colleges=colleges,
+        selected_college=college_code
+    )
 
 

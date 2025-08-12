@@ -19,10 +19,14 @@
         </button>
 
 
-        <select class="form-select w-25" style="border-color: black;  height: 45px;" id="collegeCode" name="collegecode" required>
-          {% for college in colleges %}
-            <option value="{{ college[0] }}">{{ college[0] }}</option>
-          {% endfor %}
+        <select class="form-select w-25" style="border-color: black; height: 45px;" 
+                id="collegeCode" name="college_code" onchange="filterPrograms()">
+            <option value="all" {% if selected_college == 'all' %}selected{% endif %}>ALL</option>
+            {% for college in colleges %}
+                <option value="{{ college[0] }}" {% if selected_college == college[0] %}selected{% endif %}>
+                    {{ college[0] }}
+                </option>
+            {% endfor %}
         </select>
         
         
@@ -67,6 +71,18 @@
 <div>
   {% include 'Program Template/search_program.html' %}
   {% include 'Program Template/programs_modal.html' %}
-</div>  
+</div> 
+
+<script>
+function filterPrograms() {
+    const selectedCollege = document.getElementById('collegeCode').value;
+    let url = '/filter';
+    if (selectedCollege !== 'all') {
+        url += '?college_code=' + encodeURIComponent(selectedCollege);
+    }
+    window.location.href = url;
+}
+</script>
+
 
 {% endblock %}
