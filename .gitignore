@@ -1,4 +1,10 @@
-/__pycache__/
-/website/__pycache__/
-/website/models/__pycache__/
-/website/routes/__pycache__/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+.env*/
