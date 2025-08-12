@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from website.models.programs import Program
+from website.models.college import College
 from website import MySQL
 
 program_bp = Blueprint('program_bp', __name__)
+college_bp = Blueprint('college_bp', __name__)
 mysql = MySQL()
 
 @program_bp.route('/addprog', methods=['GET', 'POST'])
@@ -15,18 +17,22 @@ def add_program():
         existing_program = Program.get_program_by_code(mysql, code)
         if existing_program:
             flash('Program already exists.', 'error')
-            return redirect(url_for('program_bp.programs_list'))  
+            return redirect(url_for('program_bp.programs_list'))
 
         Program.add_program(mysql, code, name, college_code)
         flash('Program Added Successfully', 'success')
         return redirect(url_for('program_bp.programs_list'))
 
-    return render_template("Program Template/programs.html")
+  
+    colleges = College.get_all_collegecodes(mysql)
+    return render_template("Program Template/programs.html", colleges=colleges)
+
 
 @program_bp.route('/programs')
 def programs_list():
     programs = Program.get_all_programs(mysql)
-    return render_template('Program Template/programs.html', programs=programs)
+    colleges = College.get_all_collegecodes(mysql)
+    return render_template('Program Template/programs.html', programs=programs, colleges=colleges)
 
 @program_bp.route('/update/<string:program_code>', methods=['GET', 'POST'])
 def update_program(program_code):
@@ -76,10 +82,15 @@ def filter_programs():
     college_code = request.args.get('college_code')  
     if college_code:
         programs = Program.filter_programs(mysql, college_code)
+        colleges = College.get_all_collegecodes(mysql)
     else:
         programs = Program.get_all_programs(mysql)
+        colleges = College.get_all_collegecodes(mysql)
     
     if not programs:
         flash('No programs found for this college', 'warning')
+        colleges = College.get_all_collegecodes(mysql)
 
-    return render_template('Program Template/programs.html', programs=programs)
+    return render_template('Program Template/programs.html', programs=programs, colleges=colleges)
+
+

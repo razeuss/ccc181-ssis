@@ -49,3 +49,12 @@ class College:
         cur.execute("DELETE FROM college WHERE code = %s", (code,))
         mysql.connection.commit()
         cur.close()
+        
+    @staticmethod
+    def get_all_collegecodes(mysql):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code FROM college")
+        colleges = cur.fetchall()
+        cur.close()
+        return colleges
+

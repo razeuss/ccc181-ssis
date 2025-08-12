@@ -19,7 +19,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
 
                 document.getElementById('firstName').readOnly = true;
                 document.getElementById('lastName').readOnly = true;
-                document.getElementById('program').readOnly = true;
+                document.getElementById('program').disabled = true;
                 document.getElementById('gender').disabled = true;
                 document.getElementById('year').readOnly = true;
             
@@ -42,7 +42,7 @@ document.getElementById('editButton').addEventListener('click', function() {
    
      document.getElementById('firstName').readOnly = false;
         document.getElementById('lastName').readOnly = false;
-        document.getElementById('program').readOnly = false;
+        document.getElementById('program').disabled = false;
         document.getElementById('gender').disabled = false;
         document.getElementById('year').readOnly = false;
 
@@ -64,7 +64,7 @@ document.getElementById('cancelstud').addEventListener('click', function() {
 
     document.getElementById('firstName').readOnly = true;
     document.getElementById('lastName').readOnly = true;
-    document.getElementById('program').readOnly = true;
+    document.getElementById('program').disabled = true;
     document.getElementById('gender').disabled = true;
     document.getElementById('year').readOnly = true;
 

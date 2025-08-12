@@ -13,7 +13,7 @@ def addstud():
         student_id = request.form['studentID']
         first_name = request.form['firstName']
         last_name = request.form['lastName']
-        program = request.form['program']
+        program = request.form['program']  # This will be program code now
         year = request.form['year']
         gender = request.form['gender']
         image_file = request.files['image']
@@ -32,7 +32,9 @@ def addstud():
         flash('Student Added Successfully', 'success')
         return redirect(url_for('student_bp.students_list'))
 
-    return render_template("Student Template/studentslist.html")
+    
+    programs = Program.get_all_programs(mysql)
+    return render_template("Student Template/studentslist.html", programs=programs)
 
 
 
@@ -49,12 +51,15 @@ def students_list():
    
     total_students = Student.get_total_count(mysql)
     total_pages = (total_students + per_page - 1) // per_page
+    
+    programs = Program.get_all_programs(mysql)
 
     return render_template(
         'Student Template/studentslist.html',
         students=students,
         page=page,
-        total_pages=total_pages
+        total_pages=total_pages,
+        programs=programs
     )
 
 

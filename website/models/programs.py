@@ -20,6 +20,7 @@ class Program:
         cur.close()
         return programs
 
+
     @staticmethod
     def update_program(mysql, old_code, new_code, name, college_code):
         cur = mysql.connection.cursor()
@@ -71,3 +72,5 @@ class Program:
         program = cur.fetchone()  
         cur.close()
         return program
+    
+    

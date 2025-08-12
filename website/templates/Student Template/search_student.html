@@ -18,10 +18,28 @@
                                     <img id="studentImage" alt="Student Image" style="width: 150px; height: 150px; border-radius: 50%;">
                                 </div>
 
-                                <div class="mb-3" id="updateimage">
-                                    <label for="image" class="form-label"  style="opacity: 0.7;">Update Profile Image</label>
+                                 <div class="mb-3" id="updateimage">
+                                    <label for="image" class="form-label" style="opacity: 0.7;">Update Profile Image</label>
                                     <input type="file" class="form-control" id="updateprofile" style="border-color: black;" name="updateprofile">
+                                    <small class="text-muted">Optional. Must be an image (JPG, PNG, GIF) and not exceed 5 MB.</small>
                                 </div>
+
+                                <script>
+                                document.getElementById('image').addEventListener('change', function() {
+                                    if (this.files[0]) {
+                                        const file = this.files[0];
+                                        const maxSize = 5 * 1024 * 1024; // 5 MB
+
+                                        if (!file.type.startsWith('image/')) {
+                                            alert('Only image files are allowed.');
+                                            this.value = ''; 
+                                        } else if (file.size > maxSize) {
+                                            alert('Image size must not exceed 5 MB.');
+                                            this.value = ''; 
+                                        }
+                                    }
+                                });
+                                </script>
 
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
@@ -39,7 +57,14 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="program" class="form-label" style="opacity: 0.7;">Program</label>
-                                    <input type="text" class="form-control" style="border-color: black;" id="program" name="program" required readonly>
+                                    <select class="form-select" style="border-color: black;" id="program" name="program" required readonly>
+                                        <option value="" disabled selected></option>
+                                        {% for program in programs %}
+                                            <option value="{{ program[0] }}">
+                                                {{ program[0] }} - {{ program[1] }} ({{ program[2] }})
+                                            </option>
+                                        {% endfor %}
+                                    </select>
                                 </div>  
                                 <div class="row">
                                     <div class="col-md-6 mb-3">

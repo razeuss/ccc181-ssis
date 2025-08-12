@@ -19,14 +19,10 @@
                       <div class="col-md-6 mb-3">
                         <label for="collegeCode" class="form-label" style="opacity: 0.7;">College Code</label>
                         <select class="form-select" style="border-color: black;" id="collegeCode" name="college_code" required>
-                          <option value="" style="opacity: 0.7;" disabled selected>Select College</option>
-                          <option value="CCS">CCS</option>
-                          <option value="CED">CED</option>
-                          <option value="COE">COE</option>
-                          <option value="CHS">CHS</option>
-                          <option value="CASS">CASS</option>
-                          <option value="CEBA">CEBA</option>
-                          <option value="CSM">CSM</option>
+                          <option value="" disabled selected>Select College</option>
+                          {% for college in colleges %}
+                            <option value="{{ college[0] }}">{{ college[0] }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                     </div>
