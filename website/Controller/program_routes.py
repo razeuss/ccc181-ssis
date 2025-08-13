@@ -57,25 +57,20 @@ def delete_program(code):
 
 @program_bp.route('/program', methods=['GET'])
 def search_program():
-    query = request.args.get('query')
-    
-    program_by_code = Program.search_program(mysql, query)
-    if program_by_code:
-        return jsonify({
-            'code': program_by_code.code,          # Accessing the properties of Program object
-            'name': program_by_code.name,
-            'college_code': program_by_code.college_code,
-        })
-        
-    program_by_name = Program.search_program_by_name(mysql, query)
-    if program_by_name:
-        return jsonify({
-            'code': program_by_name[0],
-            'name': program_by_name[1],
-            'college_code': program_by_name[2],
-        })
-        
-    return jsonify(None)
+    query = request.args.get('query', '').strip()
+    if not query:
+        return jsonify([])
+
+    cur = mysql.connection.cursor()
+    cur.execute("""
+        SELECT code, name, college_code
+        FROM program
+        WHERE code LIKE %s OR name LIKE %s OR college_code LIKE %s
+    """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+    programs = cur.fetchall()
+    cur.close()
+
+    return jsonify(programs)
 
 @program_bp.route('/filter', methods=['GET'])
 def filter_programs():

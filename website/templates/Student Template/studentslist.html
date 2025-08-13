@@ -58,8 +58,8 @@
                 <td>{{ student[5] }}</td>
                 <td>
                     <button type="button" class="btn btn-info btn-sm show-details-btn" data-id="{{ student[2] }}" style="border-color: black; background-color: white;">Show Details</button>
-                    <button type="button" class="btn btn-secondary me-2 edit-btn" data-id="{{ student[2] }}">EDIT</button>
-                    <button type="button" class="btn del-btn" data-id="{{ student[2] }}" style="border: 2px solid red; background-color: transparent; color: red;">DELETE</button>
+                    <button type="button" class="btn btn-secondary btn-sm edit-btn" data-id="{{ student[2] }}">Edit</button>
+                    <button type="button" class="btn btn-sm del-btn" data-id="{{ student[2] }}" style="border-color: red; background-color: transparent; color: red;">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -121,8 +121,8 @@
                             <td>${student.year}</td>
                             <td>
                                 <button type="button" class="btn btn-info btn-sm show-details-btn" data-id="${student.id}" style="border-color: black; background-color: white;">Show Details</button>
-                                <button type="button" class="btn btn-secondary me-2 edit-btn" data-id="${student.id}">EDIT</button>
-                                <button type="button" class="btn del-btn" data-id="${student.id}" style="border: 2px solid red; background-color: transparent; color: red;">DELETE</button>
+                                <button type="button" class="btn btn-secondary btn-sm  edit-btn" data-id="${student.id}">EDIT</button>
+                                <button type="button" class="btn del-btn btn-sm " data-id="${student.id}"  style="border-color: red; background-color: transparent; color: red;"">DELETE</button>
                             </td>
                         </tr>
                     `;

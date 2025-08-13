@@ -31,26 +31,22 @@ def colleges_list():
 
 @college_bp.route('/search_college', methods=['GET'])
 def search_college():
-    query = request.args.get('query')
+    query = request.args.get('query', '').strip()
+    cur = mysql.connection.cursor()
 
-    # Try searching by code first
-    college_by_code = College.get_college_by_code(mysql, query)
-    if college_by_code:
-        return jsonify({
-            'code': college_by_code[0], 
-            'name': college_by_code[1],
-        })
-    
-    # If no college is found by code, try searching by name
-    college_by_name = College.get_college_by_name(mysql, query)
-    if college_by_name:
-        return jsonify({
-            'code': college_by_name[0], 
-            'name': college_by_name[1],
-        })
+    # Match by code or name (case-insensitive partial search)
+    cur.execute("""
+        SELECT code, name
+        FROM college
+        WHERE code LIKE %s OR name LIKE %s
+    """, (f"%{query}%", f"%{query}%"))
 
-    # If no result found in either code or name, return None
-    return jsonify(None)
+    colleges = cur.fetchall()
+    cur.close()
+
+    return jsonify([
+        {"code": c[0], "name": c[1]} for c in colleges
+    ])
 
 
 

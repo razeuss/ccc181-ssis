@@ -1,34 +1,3 @@
-document.getElementById('searchprog').addEventListener('click', function() {
-    const query = document.getElementById('programinput').value;
-
-    fetch(`/program?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Fetched data:', data); 
-
-            if (data) {
-                document.getElementById('programCode').value = data.code;
-                document.getElementById('college_code').value = data.college_code;
-                document.getElementById('programName').value = data.name;
-
-                $('#searchProgramModal').modal('show');
-
-                document.getElementById('programCode').readOnly = true;
-                document.getElementById('college_code').disabled = true;
-                document.getElementById('programName').readOnly = true;
-
-                document.getElementById('doneprog').style.display = 'none';
-                document.getElementById('deleteprog').style.display = 'none';
-                document.getElementById('cancelprog').style.display = 'none';
-            
-                document.getElementById('editprog').style.display = 'block';
-                document.getElementById('searchProgramModalLabel').textContent = 'Program Information';
-            } else {
-                alert('Program not found');
-            }
-        })
-        .catch(error => console.error('Error fetching program data:', error));
-});
 
 
 document.getElementById('editprog').addEventListener('click', function() {
