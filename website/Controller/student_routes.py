@@ -129,7 +129,8 @@ def search_students():
             WHERE firstname LIKE %s
                OR lastname LIKE %s
                OR program_code LIKE %s
-        """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+               OR gender LIKE %s
+        """, (f"%{query}%", f"%{query}%", f"%{query}%", f"%{query}%"))
 
     results = cur.fetchall()
     cur.close()
