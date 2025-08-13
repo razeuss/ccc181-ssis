@@ -104,15 +104,33 @@ def search_students():
         return jsonify([])
 
     cur = mysql.connection.cursor()
-    # Match ID, firstname, or lastname with partial matches
-    cur.execute("""
-        SELECT id, firstname, lastname, program_code, gender, year, image_url
-        FROM student
-        WHERE CAST(id AS CHAR) LIKE %s
-           OR firstname LIKE %s
-           OR lastname LIKE %s
-    """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+
+    # Check if query matches the full student ID format ####-####
+    if re.fullmatch(r"\d{4}-\d{4}", query):
+        cur.execute("""
+            SELECT id, firstname, lastname, program_code, gender, year, image_url
+            FROM student
+            WHERE id = %s
+        """, (query,))
     
+    # If it's a single digit, search specifically in the year
+    elif len(query) == 1 and query.isdigit():
+        cur.execute("""
+            SELECT id, firstname, lastname, program_code, gender, year, image_url
+            FROM student
+            WHERE CAST(year AS CHAR) LIKE %s
+        """, (f"%{query}%",))
+
+    # Default: search in all fields (current behavior)
+    else:
+        cur.execute("""
+            SELECT id, firstname, lastname, program_code, gender, year, image_url
+            FROM student
+            WHERE firstname LIKE %s
+               OR lastname LIKE %s
+               OR program_code LIKE %s
+        """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+
     results = cur.fetchall()
     cur.close()
 
@@ -130,6 +148,7 @@ def search_students():
     ]
 
     return jsonify(students_list)
+
 
 
 
