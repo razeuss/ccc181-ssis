@@ -8,8 +8,8 @@
     <div class="d-flex align-items-center justify-content-start">
         <!-- Search input -->
         <div class="input-group w-50" style="margin-right: 15px;">
-            <input type="text" class="inpsearch form-control" id="studentSearch" style="border-color: black;" placeholder="Search" aria-label="Search students" aria-describedby="searchButton">
-            <button class="search btn btn-primary" type="button" id="searchButton"><i class="fas fa-search"></i></button></button>
+            <input type="text" class="inpsearch form-control" id="studentSearch" style="border-color: black;" placeholder="Search" aria-label="Search students">
+            <button class="search btn btn-primary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
         </div>      
 
         <button type="button" class="primbutton btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -17,9 +17,9 @@
         </button>
     </div>
 
-        {% include "Student Template/search_student.html" %}  
-        {% include "Student Template/studentlist_modal.html" %} 
-        
+    {% include "Student Template/search_student.html" %}
+    {% include "Student Template/studentlist_modal.html" %} 
+
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <div class="w-100 mt-3">
@@ -57,101 +57,16 @@
                 <td>{{ student[4] }}</td>
                 <td>{{ student[5] }}</td>
                 <td>
-                    <button type="button" 
-                        class="btn btn-info btn-sm show-details-btn" 
-                        data-id="{{ student[2] }}" 
-                        id="ShowDetails"
-                        data-bs-toggle="modal" 
-                        data-bs-target="#searchStudentModal"
-                        style="border-color: black; background-color: white;">
-                        Show Details
-                    </button>
+                    <button type="button" class="btn btn-info btn-sm show-details-btn" data-id="{{ student[2] }}" style="border-color: black; background-color: white;">Show Details</button>
+                    <button type="button" class="btn btn-secondary me-2 edit-btn" data-id="{{ student[2] }}">EDIT</button>
+                    <button type="button" class="btn del-btn" data-id="{{ student[2] }}" style="border: 2px solid red; background-color: transparent; color: red;">DELETE</button>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    function bindShowDetailsButtons() {
-        document.querySelectorAll(".show-details-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                const studentId = this.dataset.id;
-                fetch(`/student?query=${encodeURIComponent(studentId)}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data) {
-                            document.getElementById("studentID").value = data.id;
-                            document.getElementById("firstName").value = data.firstname;
-                            document.getElementById("lastName").value = data.lastname;
-                            document.getElementById("program").value = data.program_code;
-                            document.getElementById("gender").value = data.gender;
-                            document.getElementById("year").value = data.year;
-                            document.getElementById("studentImage").src =
-                                data.image_url !== "NO_IMAGE"
-                                    ? data.image_url
-                                    : "https://via.placeholder.com/150";
-                        }
-                    });
-            });
-        });
-    }
-
-    // Initial bind
-    bindShowDetailsButtons();
-
-    // Search students and update table
-    document.getElementById("searchButton").addEventListener("click", function () {
-        const query = document.getElementById("studentSearch").value.trim();
-        if (!query) return;
-
-        fetch(`/search_students?query=${encodeURIComponent(query)}`)
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.querySelector("table tbody");
-                tbody.innerHTML = "";
-
-                if (data.length === 0) {
-                    tbody.innerHTML = `
-                        <tr><td colspan="8" class="text-center">No matching students found</td></tr>
-                    `;
-                    return;
-                }
-
-                data.forEach(student => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><img src="${student.image_url}" style="width:50px; height:50px; border-radius:50%; background-color:#555;"></td>
-                            <td>${student.firstname}</td>
-                            <td>${student.lastname}</td>
-                            <td>${student.id}</td>
-                            <td>${student.program_code}</td>
-                            <td>${student.gender}</td>
-                            <td>${student.year}</td>
-                            <td>
-                                <button type="button" 
-                                    class="btn btn-info btn-sm show-details-btn" 
-                                    data-id="${student.id}"
-                                    id="ShowDetails"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#searchStudentModal"
-                                    style="border-color: black; background-color: white;">
-                                    Show Details
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                });
-
-                // Rebind the details buttons for new rows
-                bindShowDetailsButtons();
-            });
-    });
-});
-</script>
-
-
+    {% include "Student Template/search_student.html" %}
 
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">
