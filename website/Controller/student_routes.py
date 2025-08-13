@@ -173,7 +173,10 @@ def update_student(student_id):
             flash('The program does not exist. Please choose a valid program.', 'error')
             return redirect(url_for('student_bp.students_list'))
 
-        Student.update_student(mysql, student_id, first_name, last_name, program, year, gender, image_file)
+        # Attempt update
+        if not Student.update_student(mysql, student_id, first_name, last_name, program, year, gender, image_file):
+            return redirect(url_for('student_bp.students_list'))  # Fail with flash
+
         flash('Student Updated Successfully', 'success')
         return redirect(url_for('student_bp.students_list'))
 

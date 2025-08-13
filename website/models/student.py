@@ -100,28 +100,49 @@ class Student:
    
     @staticmethod
     def update_student(mysql, student_id, first_name, last_name, program, year, gender, image_file=None):
+        from flask import flash
+
         image_url = None
-        if image_file:
+
+        if image_file and image_file.filename != '':
+            # Check MIME type
+            if image_file.mimetype not in ALLOWED_IMAGE_TYPES:
+                flash("Invalid file type. Only JPG, PNG, GIF allowed.", "error")
+                return False  # Indicate failure
+
+            # Check size
+            image_file.seek(0, 2)  # go to end
+            file_size = image_file.tell()
+            image_file.seek(0)     # reset pointer
+            if file_size > MAX_IMAGE_SIZE:
+                flash("File size exceeds 5 MB.", "error")
+                return False  # Indicate failure
+
+            # Upload to Cloudinary
             upload_result = cloudinary_upload(image_file)
             image_url = upload_result.get("secure_url")
-        
+
         cur = mysql.connection.cursor()
-        
+
         if image_url:
+            # Update with new image
             cur.execute("""
                 UPDATE student 
                 SET firstname = %s, lastname = %s, program_code = %s, year = %s, gender = %s, image_url = %s
                 WHERE id = %s
             """, (first_name, last_name, program, year, gender, image_url, student_id))
         else:
+            # Update without changing image
             cur.execute("""
                 UPDATE student 
                 SET firstname = %s, lastname = %s, program_code = %s, year = %s, gender = %s
                 WHERE id = %s
             """, (first_name, last_name, program, year, gender, student_id))
-        
+
         mysql.connection.commit()
         cur.close()
+        return True  # Success
+
         
     def delete_student(mysql, student_id):
         cur = mysql.connection.cursor()
