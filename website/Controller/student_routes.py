@@ -58,18 +58,16 @@ def addstud():
 
 @student_bp.route('/Students')
 def students_list():
-    
+    if request.args.get("flash_no_results") == "1":
+        flash("No students found.", "error")
+
     page = int(request.args.get('page', 1))
     per_page = 50
     offset = (page - 1) * per_page
 
-    
     students = Student.get_paginated_students(mysql, per_page, offset)
-
-   
     total_students = Student.get_total_count(mysql)
     total_pages = (total_students + per_page - 1) // per_page
-    
     programs = Program.get_all_programs(mysql)
 
     return render_template(
@@ -77,8 +75,10 @@ def students_list():
         students=students,
         page=page,
         total_pages=total_pages,
+        total_students=total_students,
         programs=programs
     )
+
 
 
 @student_bp.route('/student', methods=['GET'])
@@ -96,6 +96,41 @@ def get_student():
             'image_url': student.image_url
         })
     return jsonify(None), 404
+
+@student_bp.route('/search_students')
+def search_students():
+    query = request.args.get('query', '').strip()
+    if not query:
+        return jsonify([])
+
+    cur = mysql.connection.cursor()
+    # Match ID, firstname, or lastname with partial matches
+    cur.execute("""
+        SELECT id, firstname, lastname, program_code, gender, year, image_url
+        FROM student
+        WHERE CAST(id AS CHAR) LIKE %s
+           OR firstname LIKE %s
+           OR lastname LIKE %s
+    """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+    
+    results = cur.fetchall()
+    cur.close()
+
+    students_list = [
+        {
+            "id": r[0],
+            "firstname": r[1],
+            "lastname": r[2],
+            "program_code": r[3],
+            "gender": r[4],
+            "year": r[5],
+            "image_url": r[6]
+        }
+        for r in results
+    ]
+
+    return jsonify(students_list)
+
 
 
 @student_bp.route('/edit/<string:student_id>', methods=['GET', 'POST'])
